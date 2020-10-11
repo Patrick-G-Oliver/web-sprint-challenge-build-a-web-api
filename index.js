@@ -1,3 +1,18 @@
+const express = require('express')
+
+const server = express()
+const port = 5000
+
+server.use(express.json())
+
+server.get('/', (req, res) => {
+    res.send(`<h2>filler text</h2>`);
+  })
+
+  server.listen(port, () => {
+	console.log(`Server running at http://localhost:${port}`)
+})
+
 /*
 play this: https://www.youtube.com/watch?v=d-diB65scQU
 
