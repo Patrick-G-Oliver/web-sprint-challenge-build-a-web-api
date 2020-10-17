@@ -40,7 +40,7 @@ function validateProject() {
 				return res.status(400).json({
 					message: "missing required description field"
                 })
-      } 
+      }
 
 			next()
 	}

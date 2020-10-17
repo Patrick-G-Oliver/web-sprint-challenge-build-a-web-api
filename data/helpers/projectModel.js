@@ -7,6 +7,8 @@ module.exports = {
   update,
   remove,
   getProjectActions,
+  findProjectActionById,
+  addProjectAction,
 };
 
 function get(id) {
@@ -58,4 +60,19 @@ function getProjectActions(projectId) {
   return db("actions")
     .where("project_id", projectId)
     .then(actions => actions.map(action => mappers.actionToBody(action)));
+}
+
+// added for post action to project specified by id functionality
+function findProjectActionById(projectId, id) {
+	return db("actions")
+		.where({ id, project_id: projectId })
+		.first()
+}
+
+// added for post action to project specified by id functionality 
+async function addProjectAction(projectId, action) {
+	const data = { project_id: projectId, ...action }
+  const [id] = await db("actions").insert(data)
+
+  return findProjectActionById(projectId, id)
 }

@@ -1,6 +1,7 @@
 const express = require('express');
 const projectModel = require('../data/helpers/projectModel')
-const actionModel = require('../data/helpers/actionModel')
+const  actionModel = require('../data/helpers/actionModel')
+const { validateAction } = require('../data/middleware/action')
 const { validateProjectID, validateProject } = require('../data/middleware/project')
 
 const router = express.Router({
@@ -8,10 +9,10 @@ const router = express.Router({
   });
 
 // add a new project to the database
-router.post('/projects', validateProject(), (req, res) => {
+router.post('/projects', validateProject(), (req, res, next) => {
     projectModel.insert(req.body)
-        .then((user) => {
-            return res.status(201).json(user)
+        .then((project) => {
+            return res.status(201).json(project)
         })
         .catch((error) => {
             next(error)
@@ -29,7 +30,7 @@ router.get('/projects', (req, res, next) => {
     })
 })
 
-// retrieve a specific user by id 
+// retrieve a specific project by id 
 router.get('/projects/:id', validateProjectID(), (req, res) => {
     res.status(200).json(req.project)
 });
@@ -70,8 +71,28 @@ router.put('/projects/:id', validateProject(), validateProjectID(), (req, res) =
           })
   });
 
-  // missing: getProjectActions (retrieve a list of actions for a project specified by id)
-  // missing: post an action to a project with project id validation (action insert with validateProjectID)
-  router.get()
+// retrieve a list of actions ascribed to a project specified by id
+router.get('/projects/:id/actions', validateProjectID(), (req, res, next) => {
+    projectModel.getProjectActions(req.params.id)
+        .then((actions) => {
+            res.status(200).json(actions)
+        })
+        .catch((error) => {
+            next(error)
+        })
+});
+
+// missing: post an action to a project with project id validation (action insert with validateProjectID)
+router.post('/projects/:id/actions', validateProjectID(), validateAction(), (req, res, next) => {
+	projectModel.addProjectAction(req.params.id, req.body)
+		.then((action) => {
+			res.status(201).json(action)
+		})
+		.catch((error) => {
+			next(error)
+		})
+});
+
+  
 
 module.exports = router;
