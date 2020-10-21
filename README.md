@@ -61,10 +61,24 @@ Commit your code regularly and meaningfully. This helps both you (in case you ev
 Be prepared to demonstrate your understanding of this week's concepts by answering questions on the following topics. You might prepare by writing down your own answers before hand.
 
 1. The core features of Node.js and Express and why they are useful.
+
+Node.js allows for the use of JavaScript to build servers (the same language used to build client-side components), is asynchronous (allowing for full use to be made of a single CPU, processor), and allows access to npm modules. Express is a Node module that facilitates tasks in Node (like sending static content, powering web sockets, and building apps) and simplifies them through abstraction. 
+
 1. Understand and explain the use of Middleware?
+
+Middleware, which can be built in (as with Express), from a third-party source, or written as needed (i.e. "custom" middleware), adds functionality to Node applications and can reduce redundant code by serving as a template that replaces repeated processes (like error handing functions, for example). 
+
 1. The basic principles of the REST architectural style.
+
+The REST architectural style holds that apps are made up of resources that are accessed through unique urls, can be represented in various forms, are managed through HTTP methods, and that all this happens via a stateless system of communication in the form of HTTP. 
+
 1. Understand and explain the use of Express Routers.
+
+Express Routers are files that contain functions that handle HTTP requests according to the urls assigned to them. Route handlers withn these functions handle the manipulation of the data resources used by an application, and additional middleware can be added to handle validation (or rejection) of the data passed in by the client or retrieved from the database involved. 
+
 1. Describe tooling used to manually test the correctness of an API.
+
+The manual testing of APIs is carried out through software like Postman of Insomnia, online services that provide GUI to the user that simulates the HTTP request that would be made be a user from the client side of an application. 
 
 You are expected to be able to answer questions in these areas. Your responses contribute to your Sprint Challenge grade.
 

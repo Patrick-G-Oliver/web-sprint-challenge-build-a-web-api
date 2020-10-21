@@ -1,3 +1,31 @@
+const express = require('express')
+const projectRouter = require('./routers/projectRouter')
+const actionRouter = require('./routers/actionRouter')
+
+const server = express()
+const port = 5000
+
+server.use(express.json())
+
+server.use(projectRouter)
+server.use(actionRouter)
+
+server.get('/', (req, res) => {
+    res.send(`<h2>filler text</h2>`);
+  })
+
+// catch-all error handler
+server.use((err, req, res, next) => {
+    console.log(err)
+    return res.status(500).json({
+      message: "Something went wrong. Please try again later."
+    })
+  })
+
+  server.listen(port, () => {
+	console.log(`Server running at http://localhost:${port}`)
+})
+
 /*
 play this: https://www.youtube.com/watch?v=d-diB65scQU
 
